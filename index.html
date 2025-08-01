@@ -10,27 +10,9 @@
     body {
       margin: 0;
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(135deg, #ffc0cb, #ffe4e1);
+      background: linear-gradient(to bottom right, #ffd5ec, #ffe9f3);
       overflow-x: hidden;
       position: relative;
-    }
-
-    .glitter {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-image: repeating-radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 2px);
-      background-size: 20px 20px;
-      animation: glitterMove 3s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes glitterMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 40px 40px; }
     }
 
     .container {
@@ -48,10 +30,11 @@
     }
 
     .letter {
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
       padding: 1.5rem;
       border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       max-width: 700px;
       margin: 1rem auto;
       font-size: 1.1rem;
@@ -69,6 +52,7 @@
     .photo {
       width: 100%;
       max-width: 300px;
+      height: auto;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       transition: transform 0.4s ease;
@@ -77,7 +61,7 @@
 
     .photo:active,
     .photo:focus {
-      transform: scale(1.2);
+      transform: scale(1.1);
       z-index: 100;
     }
 
@@ -104,45 +88,6 @@
       font-size: 1.2rem;
     }
 
-    .sparkle {
-      position: absolute;
-      pointer-events: none;
-      width: 8px;
-      height: 8px;
-      background: #fff;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
-      animation: sparkle 1s ease-out forwards;
-      z-index: 999;
-    }
-
-    @keyframes sparkle {
-      to {
-        transform: translateY(-20px) scale(0.5);
-        opacity: 0;
-      }
-    }
-
-    .bubble {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff0f5;
-      padding: 1rem 1.5rem;
-      border-radius: 20px;
-      font-size: 1.1rem;
-      color: #d63384;
-      animation: floatUp 3s ease-in-out;
-      z-index: 200;
-    }
-
-    @keyframes floatUp {
-      0% { opacity: 0; bottom: 20px; }
-      50% { opacity: 1; bottom: 60px; }
-      100% { opacity: 0; bottom: 100px; }
-    }
-
     .btn {
       padding: 0.6rem 1.2rem;
       font-size: 1rem;
@@ -162,22 +107,20 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 5;
+      z-index: 1;
       pointer-events: none;
     }
   </style>
 </head>
 
 <body>
-  <div class="glitter"></div>
-
   <div class="container">
     <h1>To My Dearest Mufi Kutty 💖</h1>
 
     <div class="letter">
       <p>Hey Mufi,</p>
-      <p>I couldn't give you a gift in person because of my fever, but this little page is my heart wrapped in code. You mean the world to me. Your smile makes my whole day light up. I wanted you to know how deeply and truly I adore you. 🥺</p>
-      <p>Each time you laugh, I fall in love again. Each time you say "Kutty", it makes my heart dance. You're the cutest thing in my world and I just want to say, I love you more than words can ever express. ❤️</p>
+      <p>I couldn’t give you a gift in person because of my fever, but this little page is my heart wrapped in code. You mean the world to me. Your smile makes my whole day light up. I wanted you to know how deeply and truly I adore you. 😘</p>
+      <p>Each time you laugh, I fall in love again. Each time you say “Kutty”, it makes my heart dance. You’re the cutest thing in my world and I just want to say, I love you more than words can ever express. ❤️</p>
     </div>
 
     <div class="photos">
@@ -196,8 +139,6 @@
     </audio>
   </div>
 
-  <div class="bubble">🧁 You're the sweetest!</div>
-
   <canvas id="confetti"></canvas>
 
   <script>
@@ -212,19 +153,7 @@
       else music.pause();
     }
 
-    document.addEventListener('touchmove', sparkleTrail);
-    document.addEventListener('mousemove', sparkleTrail);
-
-    function sparkleTrail(e) {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      sparkle.style.left = e.pageX + 'px';
-      sparkle.style.top = e.pageY + 'px';
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 800);
-    }
-
-    // Confetti
+    // Confetti animation
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
     let pieces = [];
@@ -241,7 +170,7 @@
       for (let i = 0; i < 100; i++) {
         pieces.push({
           x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height - canvas.height,
+          y: Math.random() * -canvas.height,
           r: Math.random() * 6 + 4,
           d: Math.random() * 40 + 10,
           color: `hsl(${Math.random() * 360}, 100%, 70%)`,
