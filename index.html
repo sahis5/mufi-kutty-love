@@ -1,121 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For My Mufi Kutty 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To My Mufi Kutty ❤️</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: url('https://i.imgur.com/zY9s4qE.jpg') no-repeat center center fixed;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('your-background.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
+      color: white;
+      text-align: center;
       overflow-x: hidden;
     }
 
-    .container {
-      text-align: center;
-      padding: 40px 20px;
-    }
-
     h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.5em;
-      color: #ffccff;
+      margin-top: 60px;
+      font-size: 2.5em;
+      animation: typewriter 3s steps(40) 1s 1 normal both;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
     }
 
-    .letter {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 700px;
-      margin: 0 auto;
+    @keyframes typewriter {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    .message {
+      margin: 20px auto;
+      max-width: 90%;
       font-size: 1.2em;
-      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 20px;
     }
 
     .photo-wall {
-      margin-top: 40px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      margin: 20px;
       gap: 15px;
     }
 
     .photo-wall img {
-      width: 120px;
-      height: 120px;
-      border-radius: 15px;
+      width: 150px;
+      height: 200px;
       object-fit: cover;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
 
-    .floating-heart {
-      position: absolute;
-      animation: floatUp 4s ease-in-out infinite;
-      color: pink;
+    .secret-hearts {
+      margin-top: 20px;
+    }
+
+    .heart {
       font-size: 30px;
-    }
-
-    @keyframes floatUp {
-      0% {
-        bottom: 0;
-        opacity: 1;
-      }
-      100% {
-        bottom: 100vh;
-        opacity: 0;
-      }
-    }
-
-    .sparkle-cursor {
-      cursor: url('https://cur.cursors-4u.net/cursors/cur-9/cur827.cur'), auto;
-    }
-
-    .kissing-emoji {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 4rem;
-      z-index: 999;
-      animation: fadeOut 3s forwards;
-    }
-
-    @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        display: none;
-      }
-    }
-
-    .secret-heart {
-      font-size: 2rem;
       cursor: pointer;
+      margin: 10px;
+      animation: beat 1.5s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup img {
+      width: 100px;
+      animation: pop 1.5s ease forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Sparkle Cursor */
+    * { cursor: url('https://cur.cursors-4u.net/symbols/sym-7/sym656.cur'), auto; }
+
+    /* Confetti */
+    canvas#confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 8888;
+      pointer-events: none;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .photo-wall img {
+        width: 120px;
+        height: 160px;
+      }
     }
   </style>
 </head>
+<body>
 
-<body class="sparkle-cursor">
-  <div class="kissing-emoji">😘</div>
+  <!-- Confetti Canvas -->
+  <canvas id="confetti"></canvas>
 
-  <div class="container">
-    <h1>For My Mufi Kutty 💕</h1>
-    <div class="letter">
-      <p>My dearest Mufi Kutty,</p>
-      <p>I couldn’t give you a gift this time because I wasn't well, but my heart is full of love for you. I made this little place on the internet just for you, where you can feel how special you are to me every time you visit.</p>
-      <p>You are the sweetest part of my life, my reason to smile, my joy even in the toughest times. Your presence makes everything brighter, warmer, and more meaningful.</p>
-      <p>Whenever you feel down, open this and know how much you're loved. I’m always here for you, no matter what. You are important, precious, and the most beautiful person I know. 💖</p>
-      <p>Forever yours,<br> Your Sahis 💌</p>
-    </div>
+  <!-- Kissing Emoji Popup -->
+  <div class="popup" id="kissPopup">
+    <img src="https://em-content.zobj.net/source/microsoft-teams/337/face-blowing-a-kiss_1f618.png" alt="Kiss">
+  </div>
 
-   <div class="gallery">
+  <h1>To My Dearest Mufi Kutty ❤️</h1>
+
+  <div class="message">
+    You are the most precious soul in my life, and even though I couldn’t gift you anything physical due to my fever,
+    I wanted to give you something filled with love. You make everything brighter. I love you beyond words 💖.
+  </div>
+
+  <div class="gallery">
     <img src="photo1.jpg" alt="Photo 1">
     <img src="photo2.jpg" alt="Photo 2">
     <img src="photo3.jpg" alt="Photo 3">
@@ -126,32 +146,55 @@
     <img src="photo8.jpg" alt="New Photo 2">
   </div>
 
-    <div style="margin-top: 50px;">
-      <span class="secret-heart" onclick="showSecret()">❤️</span>
-      <div id="secretMessage" style="display:none; margin-top:10px; font-size:1.2em;">
-        You're my forever and always! 💘
-      </div>
-    </div>
+  <div class="secret-hearts">
+    <span class="heart" onclick="alert('You have the most beautiful smile 💕')">❤️</span>
+    <span class="heart" onclick="alert('I can’t stop thinking about you 💭')">💖</span>
+    <span class="heart" onclick="alert('You are my everything 🌍')">💘</span>
   </div>
 
+  <audio autoplay loop>
+    <source src="https://dl.sndup.net/gtxj/MufiMusic.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    // Floating heart balloons
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'floating-heart';
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.bottom = '0';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
-    }, 500);
+    // Remove kissing emoji after 3 seconds
+    setTimeout(() => {
+      document.getElementById("kissPopup").style.display = "none";
+    }, 3000);
 
-    // Secret message popup
-    function showSecret() {
-      document.getElementById('secretMessage').style.display = 'block';
+    // Confetti setup
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = [];
+    for (let i = 0; i < 150; i++) {
+      pieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        size: Math.random() * 5 + 2,
+        speed: Math.random() * 3 + 2,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+      });
     }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of pieces) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.y += p.speed;
+        if (p.y > canvas.height) {
+          p.y = -p.size;
+        }
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    drawConfetti();
   </script>
-
 </body>
-
 </html>
