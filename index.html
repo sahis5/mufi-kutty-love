@@ -40,15 +40,23 @@
       backdrop-filter: blur(5px);
     }
 
+    .photos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 10px;
+    }
+
     .photos img {
-      width: 90%;
-      max-width: 400px;
+      width: 90vw; /* 90% of the viewport width */
+      max-width: 350px;
       height: auto;
       border-radius: 15px;
-      margin: 10px auto;
-      display: block;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      object-fit: contain;
     }
+
 
 
 
