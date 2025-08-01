@@ -112,6 +112,81 @@
     }
   </style>
 </head>
+<canvas id="beadsCanvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('beadsCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let beads = [];
+  const beadCount = 70;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function createBeads() {
+    beads = [];
+    for (let i = 0; i < beadCount; i++) {
+      beads.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 3 + 1,
+        speed: Math.random() * 1 + 0.5,
+        opacity: Math.random() * 0.5 + 0.2
+      });
+    }
+  }
+
+  function drawBeads() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let bead of beads) {
+      ctx.beginPath();
+      ctx.arc(bead.x, bead.y, bead.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 255, 255, ${bead.opacity})`;
+      ctx.shadowColor = 'rgba(255, 192, 203, 0.4)';
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      bead.y += bead.speed;
+      if (bead.y > canvas.height) {
+        bead.y = -bead.radius;
+        bead.x = Math.random() * canvas.width;
+      }
+    }
+    requestAnimationFrame(drawBeads);
+  }
+
+  createBeads();
+  drawBeads();
+</script>
+
+<style>
+  #beadsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffe6f0, #fce4ec);
+    opacity: 0.9;
+  }
+
+  .main-content, #secretMessage, .music-toggle, .confetti-container {
+    position: relative;
+    z-index: 2;
+  }
+</style>
 
 <body>
   <div class="container">
@@ -208,3 +283,4 @@
 </body>
 
 </html>
+
