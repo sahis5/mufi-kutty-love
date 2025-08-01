@@ -3,139 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>To My Mufi Kutty ❤️</title>
+  <title>For My Mufi Kutty ❤️</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background: url('your-background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-align: center;
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
       overflow-x: hidden;
     }
 
-    h1 {
-      margin-top: 60px;
-      font-size: 2.5em;
-      animation: typewriter 3s steps(40) 1s 1 normal both;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid white;
+    .confetti {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    @keyframes typewriter {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    .message {
-      margin: 20px auto;
-      max-width: 90%;
-      font-size: 1.2em;
-      background: rgba(0, 0, 0, 0.5);
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
       padding: 20px;
-      border-radius: 20px;
+      color: #fff;
     }
 
-    .photo-wall {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 20px;
-      gap: 15px;
-    }
-
-    .photo-wall img {
-      width: 150px;
-      height: 200px;
-      object-fit: cover;
+    .letter {
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      backdrop-filter: blur(5px);
     }
 
-    .secret-hearts {
+    .photos img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      margin: 10px auto;
+      display: block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .secret-message {
       margin-top: 20px;
     }
 
-    .heart {
+    .secret-message span {
       font-size: 30px;
       cursor: pointer;
-      margin: 10px;
-      animation: beat 1.5s infinite;
+      padding: 0 10px;
+      transition: transform 0.3s;
     }
 
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.4); }
+    .secret-message span:hover {
+      transform: scale(1.4);
     }
 
-    .popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .popup img {
-      width: 100px;
-      animation: pop 1.5s ease forwards;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(0); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Sparkle Cursor */
-    * { cursor: url('https://cur.cursors-4u.net/symbols/sym-7/sym656.cur'), auto; }
-
-    /* Confetti */
-    canvas#confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 8888;
-      pointer-events: none;
-    }
-
-    audio {
+    .hidden {
       display: none;
+      font-size: 18px;
+      margin-top: 10px;
     }
 
-    @media (max-width: 768px) {
-      .photo-wall img {
-        width: 120px;
-        height: 160px;
+    .emoji-kiss {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      font-size: 60px;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      animation: fadeOut 3s ease forwards;
+    }
+
+    @keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0; transform: translate(-50%, -60%);}
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: 0;
+      font-size: 24px;
+      color: #ff4d6d;
+      animation: floatUp 6s infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    /* Sparkle cursor */
+    body {
+      cursor: url('https://cdn-icons-png.flaticon.com/512/616/616408.png'), auto;
+    }
+
+    @media screen and (max-width: 600px) {
+      .letter {
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      .secret-message span {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Confetti Canvas -->
-  <canvas id="confetti"></canvas>
+  <!-- Kissing emoji -->
+  <div class="emoji-kiss">😘</div>
 
-  <!-- Kissing Emoji Popup -->
-  <div class="popup" id="kissPopup">
-    <img src="https://em-content.zobj.net/source/microsoft-teams/337/face-blowing-a-kiss_1f618.png" alt="Kiss">
-  </div>
+  <!-- Confetti -->
+  <canvas class="confetti"></canvas>
 
-  <h1>To My Dearest Mufi Kutty ❤️</h1>
+  <!-- Floating Hearts -->
+  <div class="heart" style="left: 10%;">❤️</div>
+  <div class="heart" style="left: 30%; animation-delay: 1s;">💖</div>
+  <div class="heart" style="left: 50%; animation-delay: 2s;">💕</div>
+  <div class="heart" style="left: 70%; animation-delay: 3s;">💘</div>
+  <div class="heart" style="left: 90%; animation-delay: 4s;">💗</div>
 
-  <div class="message">
-    You are the most precious soul in my life, and even though I couldn’t gift you anything physical due to my fever,
-    I wanted to give you something filled with love. You make everything brighter. I love you beyond words 💖.
-  </div>
+  <!-- Main content -->
+  <div class="content">
+    <h1>To My Dearest Mufi Kutty 💕</h1>
 
-  <div class="gallery">
+    <div class="letter">
+      <p>
+        Hey my love 😘<br><br>
+        I couldn’t give you a gift because I wasn’t feeling well... but you are too special to miss out on something sweet. 💌 So I made this for you... just us two, our little secret corner of the web.
+      </p>
+      <p>
+        You make my world brighter, my days warmer, and my heart happier 💖<br>
+        I’m grateful every single moment to have you as my Mufi Kutty 🥺💞<br>
+        This is just a tiny way of showing you how much you mean to me 🌈
+      </p>
+      <p>
+        Yours, always & forever,<br>
+        ❤️ Mohammed Sahis ❤️
+      </p>
+    </div>
+
+    <div class="gallery">
     <img src="photo1.jpg" alt="Photo 1">
     <img src="photo2.jpg" alt="Photo 2">
     <img src="photo3.jpg" alt="Photo 3">
@@ -146,55 +163,54 @@
     <img src="photo8.jpg" alt="New Photo 2">
   </div>
 
-  <div class="secret-hearts">
-    <span class="heart" onclick="alert('You have the most beautiful smile 💕')">❤️</span>
-    <span class="heart" onclick="alert('I can’t stop thinking about you 💭')">💖</span>
-    <span class="heart" onclick="alert('You are my everything 🌍')">💘</span>
+    <div class="secret-message">
+      <p>Tap a heart 💕 to see a secret:</p>
+      <span onclick="reveal(1)">❤️</span>
+      <span onclick="reveal(2)">💖</span>
+      <span onclick="reveal(3)">💘</span>
+      <div id="msg1" class="hidden">You are the most beautiful person inside and out 💫</div>
+      <div id="msg2" class="hidden">Every moment with you is my favorite memory 🌹</div>
+      <div id="msg3" class="hidden">I love you more than words could ever say 💕</div>
+    </div>
   </div>
 
-  <audio autoplay loop>
-    <source src="https://dl.sndup.net/gtxj/MufiMusic.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
-    // Remove kissing emoji after 3 seconds
-    setTimeout(() => {
-      document.getElementById("kissPopup").style.display = "none";
-    }, 3000);
+    function reveal(id) {
+      document.getElementById('msg' + id).classList.toggle('hidden');
+    }
 
-    // Confetti setup
-    const canvas = document.getElementById('confetti');
+    // Confetti
+    const canvas = document.querySelector('.confetti');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const pieces = [];
+    let pieces = [];
+    const colors = ["#ff4d6d", "#f9c5d1", "#ffe0f0", "#ff99c8"];
+
     for (let i = 0; i < 150; i++) {
       pieces.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height - canvas.height,
-        size: Math.random() * 5 + 2,
-        speed: Math.random() * 3 + 2,
-        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+        radius: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: Math.random() * 3 + 2
       });
     }
 
-    function drawConfetti() {
+    function update() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let p of pieces) {
+        p.y += p.speed;
+        if (p.y > canvas.height) p.y = -10;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.fill();
-        p.y += p.speed;
-        if (p.y > canvas.height) {
-          p.y = -p.size;
-        }
       }
-      requestAnimationFrame(drawConfetti);
+      requestAnimationFrame(update);
     }
-
-    drawConfetti();
+    update();
   </script>
 </body>
 </html>
