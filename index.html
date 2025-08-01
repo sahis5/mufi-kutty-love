@@ -119,7 +119,7 @@
   const ctx = canvas.getContext('2d');
 
   let beads = [];
-  const beadCount = 70;
+  const beadCount = 100;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -128,15 +128,17 @@
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
+  const colors = ['#ff69b4', '#00ffff', '#ffff00', '#ff4500', '#00ff7f', '#9370DB', '#ff1493', '#1e90ff'];
+
   function createBeads() {
     beads = [];
     for (let i = 0; i < beadCount; i++) {
       beads.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 3 + 1,
-        speed: Math.random() * 1 + 0.5,
-        opacity: Math.random() * 0.5 + 0.2
+        radius: Math.random() * 5 + 2,
+        speed: Math.random() * 2 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
   }
@@ -146,9 +148,9 @@
     for (let bead of beads) {
       ctx.beginPath();
       ctx.arc(bead.x, bead.y, bead.radius, 0, 2 * Math.PI);
-      ctx.fillStyle = `rgba(255, 255, 255, ${bead.opacity})`;
-      ctx.shadowColor = 'rgba(255, 192, 203, 0.4)';
-      ctx.shadowBlur = 8;
+      ctx.fillStyle = bead.color;
+      ctx.shadowColor = bead.color;
+      ctx.shadowBlur = 10;
       ctx.fill();
       bead.y += bead.speed;
       if (bead.y > canvas.height) {
@@ -168,23 +170,14 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: -1; /* This is the FIX: send it behind everything */
     pointer-events: none;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ffe6f0, #fce4ec);
-    opacity: 0.9;
-  }
-
-  .main-content, #secretMessage, .music-toggle, .confetti-container {
-    position: relative;
-    z-index: 2;
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #fff0f5, #ffe4e1);
   }
 </style>
 
@@ -283,4 +276,5 @@
 </body>
 
 </html>
+
 
