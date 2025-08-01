@@ -107,81 +107,23 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1;
       pointer-events: none;
+    }
+
+    #beadsCanvas {
+      z-index: -1;
+    }
+
+    #confettiCanvas {
+      z-index: 3;
     }
   </style>
 </head>
-<canvas id="beadsCanvas"></canvas>
-
-<script>
-  const canvas = document.getElementById('beadsCanvas');
-  const ctx = canvas.getContext('2d');
-
-  let beads = [];
-  const beadCount = 100;
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  const colors = ['#ff69b4', '#00ffff', '#ffff00', '#ff4500', '#00ff7f', '#9370DB', '#ff1493', '#1e90ff'];
-
-  function createBeads() {
-    beads = [];
-    for (let i = 0; i < beadCount; i++) {
-      beads.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 5 + 2,
-        speed: Math.random() * 2 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)]
-      });
-    }
-  }
-
-  function drawBeads() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let bead of beads) {
-      ctx.beginPath();
-      ctx.arc(bead.x, bead.y, bead.radius, 0, 2 * Math.PI);
-      ctx.fillStyle = bead.color;
-      ctx.shadowColor = bead.color;
-      ctx.shadowBlur = 10;
-      ctx.fill();
-      bead.y += bead.speed;
-      if (bead.y > canvas.height) {
-        bead.y = -bead.radius;
-        bead.x = Math.random() * canvas.width;
-      }
-    }
-    requestAnimationFrame(drawBeads);
-  }
-
-  createBeads();
-  drawBeads();
-</script>
-
-<style>
-  #beadsCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1; /* This is the FIX: send it behind everything */
-    pointer-events: none;
-  }
-
-  body {
-    margin: 0;
-    overflow-x: hidden;
-    background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-  }
-</style>
 
 <body>
+  <canvas id="beadsCanvas"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+
   <div class="container">
     <h1>To My Dearest Mufi Kutty 💖</h1>
 
@@ -207,11 +149,10 @@
     </audio>
   </div>
 
-  <canvas id="confetti"></canvas>
-
   <script>
     function showMessage() {
-      document.getElementById("secret").style.display = "block";
+      const msg = document.getElementById("secret");
+      msg.style.display = "block";
       launchConfetti();
     }
 
@@ -221,24 +162,74 @@
       else music.pause();
     }
 
-    // Confetti animation
-    const canvas = document.getElementById('confetti');
-    const ctx = canvas.getContext('2d');
-    let pieces = [];
+    // Colorful Falling Beads
+    const beadCanvas = document.getElementById('beadsCanvas');
+    const beadCtx = beadCanvas.getContext('2d');
+    let beads = [];
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function resizeBeadCanvas() {
+      beadCanvas.width = window.innerWidth;
+      beadCanvas.height = window.innerHeight;
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    window.addEventListener('resize', resizeBeadCanvas);
+    resizeBeadCanvas();
+
+    const colors = ['#ff69b4', '#00ffff', '#ffff00', '#ff4500', '#00ff7f', '#9370DB', '#ff1493', '#1e90ff'];
+
+    function createBeads() {
+      beads = [];
+      for (let i = 0; i < 120; i++) {
+        beads.push({
+          x: Math.random() * beadCanvas.width,
+          y: Math.random() * beadCanvas.height,
+          radius: Math.random() * 5 + 2,
+          speed: Math.random() * 2 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    function drawBeads() {
+      beadCtx.clearRect(0, 0, beadCanvas.width, beadCanvas.height);
+      for (let bead of beads) {
+        beadCtx.beginPath();
+        beadCtx.arc(bead.x, bead.y, bead.radius, 0, 2 * Math.PI);
+        beadCtx.fillStyle = bead.color;
+        beadCtx.shadowColor = bead.color;
+        beadCtx.shadowBlur = 10;
+        beadCtx.fill();
+        bead.y += bead.speed;
+        if (bead.y > beadCanvas.height) {
+          bead.y = -bead.radius;
+          bead.x = Math.random() * beadCanvas.width;
+        }
+      }
+      requestAnimationFrame(drawBeads);
+    }
+
+    createBeads();
+    drawBeads();
+
+    // Confetti 🎊
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let pieces = [];
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
 
     function launchConfetti() {
+      pieces = [];
       for (let i = 0; i < 100; i++) {
         pieces.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * -canvas.height,
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * -confettiCanvas.height,
           r: Math.random() * 6 + 4,
           d: Math.random() * 40 + 10,
           color: `hsl(${Math.random() * 360}, 100%, 70%)`,
@@ -249,14 +240,14 @@
     }
 
     function drawConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
       for (let p of pieces) {
-        ctx.beginPath();
-        ctx.lineWidth = p.r;
-        ctx.strokeStyle = p.color;
-        ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-        ctx.stroke();
+        confettiCtx.beginPath();
+        confettiCtx.lineWidth = p.r;
+        confettiCtx.strokeStyle = p.color;
+        confettiCtx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+        confettiCtx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+        confettiCtx.stroke();
       }
       updateConfetti();
       requestAnimationFrame(drawConfetti);
@@ -267,7 +258,7 @@
         p.tiltAngle += 0.1;
         p.y += Math.cos(p.d) + 2;
         p.tilt = Math.sin(p.tiltAngle) * 15;
-        if (p.y > canvas.height) p.y = -20;
+        if (p.y > confettiCanvas.height) p.y = -20;
       }
     }
 
@@ -276,5 +267,3 @@
 </body>
 
 </html>
-
-
