@@ -49,16 +49,13 @@
     }
 
     .photos img {
-      width: 90vw; /* 90% of the viewport width */
+      width: 90vw;
       max-width: 350px;
       height: auto;
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       object-fit: contain;
     }
-
-
-
 
     .secret-message {
       margin-top: 20px;
@@ -96,7 +93,6 @@
       100% {opacity: 0; transform: translate(-50%, -60%);}
     }
 
-    /* Floating hearts */
     .heart {
       position: fixed;
       bottom: 0;
@@ -111,7 +107,6 @@
       100% { transform: translateY(-100vh); opacity: 0; }
     }
 
-    /* Sparkle cursor */
     body {
       cursor: url('https://cdn-icons-png.flaticon.com/512/616/616408.png'), auto;
     }
@@ -129,28 +124,21 @@
   </style>
 </head>
 <body>
-
-  <!-- Kissing emoji -->
   <div class="emoji-kiss">😘</div>
-
-  <!-- Confetti -->
   <canvas class="confetti"></canvas>
-
-  <!-- Floating Hearts -->
   <div class="heart" style="left: 10%;">❤️</div>
   <div class="heart" style="left: 30%; animation-delay: 1s;">💖</div>
   <div class="heart" style="left: 50%; animation-delay: 2s;">💕</div>
   <div class="heart" style="left: 70%; animation-delay: 3s;">💘</div>
   <div class="heart" style="left: 90%; animation-delay: 4s;">💗</div>
 
-  <!-- Main content -->
   <div class="content">
     <h1>To My Dearest Mufi Kutty 💕</h1>
 
     <div class="letter">
       <p>
         Hey my love 😘<br><br>
-        I couldn’t give you a gift because I wasn’t feeling well... but you are too special to miss out on something sweet. 💌 So I made this for you... just us two, our little secret corner of the web.
+        I couldn’t give you a gift because I wasn’t feeling well... but you are too special to miss out on something sweet. 📌 So I made this for you... just us two, our little secret corner of the web.
       </p>
       <p>
         You make my world brighter, my days warmer, and my heart happier 💖<br>
@@ -172,8 +160,7 @@
       <img src="photo6.jpg" alt="Photo 6">
       <img src="photo7.jpg" alt="New Photo 1">
       <img src="photo8.jpg" alt="New Photo 2">
-  </div>
-
+    </div>
 
     <div class="secret-message">
       <p>Tap a heart 💕 to see a secret:</p>
@@ -191,7 +178,6 @@
       document.getElementById('msg' + id).classList.toggle('hidden');
     }
 
-    // Confetti
     const canvas = document.querySelector('.confetti');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
