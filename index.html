@@ -1,214 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For My Mufi Kutty ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mufi Kutty 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffc0cb, #ffe4e1);
       overflow-x: hidden;
     }
 
-    .confetti {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
+    .container {
+      text-align: center;
+      padding: 2rem;
     }
 
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 20px;
-      color: #fff;
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ff69b4;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
 
     .letter {
-      background: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
       border-radius: 15px;
-      padding: 20px;
-      max-width: 600px;
-      margin: 0 auto 20px;
-      backdrop-filter: blur(5px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      margin: 1rem auto;
+      font-size: 1.1rem;
+      color: #333;
     }
 
-    .photos {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      padding: 10px;
-    }
-
-    .photos img {
-      width: 90vw;
-      max-width: 350px;
-      height: auto;
+    .photo {
+      width: 90%;
+      max-width: 300px;
       border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      object-fit: contain;
-    }
-
-    .secret-message {
-      margin-top: 20px;
-    }
-
-    .secret-message span {
-      font-size: 30px;
-      cursor: pointer;
-      padding: 0 10px;
+      margin: 1rem auto;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s;
     }
 
-    .secret-message span:hover {
-      transform: scale(1.4);
+    .photo:hover {
+      transform: scale(1.05);
     }
 
-    .hidden {
+    .surprise {
+      background-color: #fff0f5;
+      padding: 1rem;
+      border-radius: 15px;
+      margin: 2rem auto;
+      width: fit-content;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px dashed #ff69b4;
+    }
+
+    .surprise:hover {
+      background-color: #ffe4e1;
+    }
+
+    .hidden-message {
       display: none;
-      font-size: 18px;
-      margin-top: 10px;
+      color: #d63384;
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.2rem;
     }
 
-    .emoji-kiss {
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      animation: sparkle 1s ease-out forwards;
+    }
+
+    @keyframes sparkle {
+      to {
+        transform: translateY(-20px) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .bubble {
       position: fixed;
-      top: 40%;
+      bottom: 20px;
       left: 50%;
-      font-size: 60px;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      animation: fadeOut 3s ease forwards;
-    }
-
-    @keyframes fadeOut {
-      0% {opacity: 1;}
-      100% {opacity: 0; transform: translate(-50%, -60%);}
-    }
-
-    .heart {
-      position: fixed;
-      bottom: 0;
-      font-size: 24px;
-      color: #ff4d6d;
-      animation: floatUp 6s infinite;
-      z-index: 0;
+      transform: translateX(-50%);
+      background: #fff0f5;
+      padding: 1rem;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      color: #d63384;
+      animation: floatUp 3s ease-in-out;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
-    }
-
-    body {
-      cursor: url('https://cdn-icons-png.flaticon.com/512/616/616408.png'), auto;
-    }
-
-    @media screen and (max-width: 600px) {
-      .letter {
-        padding: 15px;
-        font-size: 16px;
+      0% {
+        opacity: 0;
+        bottom: 20px;
       }
-
-      .secret-message span {
-        font-size: 24px;
+      50% {
+        opacity: 1;
+        bottom: 50px;
+      }
+      100% {
+        opacity: 0;
+        bottom: 100px;
       }
     }
   </style>
 </head>
-<body>
-  <div class="emoji-kiss">😘</div>
-  <canvas class="confetti"></canvas>
-  <div class="heart" style="left: 10%;">❤️</div>
-  <div class="heart" style="left: 30%; animation-delay: 1s;">💖</div>
-  <div class="heart" style="left: 50%; animation-delay: 2s;">💕</div>
-  <div class="heart" style="left: 70%; animation-delay: 3s;">💘</div>
-  <div class="heart" style="left: 90%; animation-delay: 4s;">💗</div>
 
-  <div class="content">
-    <h1>To My Dearest Mufi Kutty 💕</h1>
+<body>
+  <div class="container">
+    <h1>To My Dearest Mufi Kutty 💖</h1>
 
     <div class="letter">
-      <p>
-        Hey my love 😘<br><br>
-        I couldn’t give you a gift because I wasn’t feeling well... but you are too special to miss out on something sweet. 📌 So I made this for you... just us two, our little secret corner of the web.
-      </p>
-      <p>
-        You make my world brighter, my days warmer, and my heart happier 💖<br>
-        I’m grateful every single moment to have you as my Mufi Kutty 🥺💞<br>
-        This is just a tiny way of showing you how much you mean to me 🌈
-      </p>
-      <p>
-        Yours, always & forever,<br>
-        ❤️ Mohammed Sahis ❤️
-      </p>
+      <p>Hey Mufi,</p>
+      <p>I couldn't give you a gift in person because of my fever, but this little page is my heart wrapped in code. You mean the world to me. Your smile makes my whole day light up. I wanted you to know how deeply and truly I adore you. 🥺</p>
+      <p>Each time you laugh, I fall in love again. Each time you say "Kutty", it makes my heart dance. You're the cutest thing in my world and I just want to say, I love you more than words can ever express. ❤️</p>
     </div>
 
-    <div class="photos">
-      <img src="photo1.jpg" alt="Photo 1">
-      <img src="photo2.jpg" alt="Photo 2">
-      <img src="photo3.jpg" alt="Photo 3">
-      <img src="photo4.jpg" alt="Photo 4">
-      <img src="photo5.jpg" alt="Photo 5">
-      <img src="photo6.jpg" alt="Photo 6">
-      <img src="photo7.jpg" alt="New Photo 1">
-      <img src="photo8.jpg" alt="New Photo 2">
-    </div>
+    <img src="photo1.jpg" alt="Photo 1" class="photo">
+    <img src="photo2.jpg" alt="Photo 2" class="photo">
 
-    <div class="secret-message">
-      <p>Tap a heart 💕 to see a secret:</p>
-      <span onclick="reveal(1)">❤️</span>
-      <span onclick="reveal(2)">💖</span>
-      <span onclick="reveal(3)">💘</span>
-      <div id="msg1" class="hidden">You are the most beautiful person inside and out 💫</div>
-      <div id="msg2" class="hidden">Every moment with you is my favorite memory 🌹</div>
-      <div id="msg3" class="hidden">I love you more than words could ever say 💕</div>
-    </div>
+    <div class="surprise" onclick="showMessage()">💌 Tap here for a secret message</div>
+    <div class="hidden-message" id="secret">You're my favorite notification, forever. 💌</div>
+
+    <audio id="bg-music" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="toggleMusic()">🎶 Toggle Music</button>
   </div>
 
+  <div class="bubble">🧁 You're the sweetest!</div>
+
   <script>
-    function reveal(id) {
-      document.getElementById('msg' + id).classList.toggle('hidden');
+    function showMessage() {
+      document.getElementById("secret").style.display = "block";
     }
 
-    const canvas = document.querySelector('.confetti');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let pieces = [];
-    const colors = ["#ff4d6d", "#f9c5d1", "#ffe0f0", "#ff99c8"];
-
-    for (let i = 0; i < 150; i++) {
-      pieces.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        radius: Math.random() * 6 + 4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        speed: Math.random() * 3 + 2
-      });
-    }
-
-    function update() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let p of pieces) {
-        p.y += p.speed;
-        if (p.y > canvas.height) p.y = -10;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
+    function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
       }
-      requestAnimationFrame(update);
     }
-    update();
+
+    document.addEventListener('mousemove', function (e) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = e.pageX + 'px';
+      sparkle.style.top = e.pageY + 'px';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1000);
+    });
   </script>
 </body>
+
 </html>
