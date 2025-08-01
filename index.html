@@ -3,121 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mufi Kutty ❤️</title>
+  <title>For My Mufi Kutty ❤️</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #ffafbd, #ffc3a0);
-      color: #fff;
-      text-align: center;
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
       overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-top: 30px;
+    .confetti {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    p {
-      font-size: 1.2rem;
-      padding: 0 20px;
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+      color: #fff;
     }
 
-    .photo-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin: 20px 0;
+    .letter {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      backdrop-filter: blur(5px);
     }
 
-    .photo-container img {
-      max-width: 90vw;
+    .photos img {
+      width: 90%;
+      max-width: 400px;
       height: auto;
-      border-radius: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      border-radius: 15px;
+      margin: 10px auto;
+      display: block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
-    .secret-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 10px;
-      background-color: #ff69b4;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-    }
+
 
     .secret-message {
-      display: none;
-      font-size: 1.3rem;
       margin-top: 20px;
-      animation: fadeIn 1s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px);}
-      to { opacity: 1; transform: translateY(0);}
+    .secret-message span {
+      font-size: 30px;
+      cursor: pointer;
+      padding: 0 10px;
+      transition: transform 0.3s;
     }
 
-    /* Heart animation */
+    .secret-message span:hover {
+      transform: scale(1.4);
+    }
+
+    .hidden {
+      display: none;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .emoji-kiss {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      font-size: 60px;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      animation: fadeOut 3s ease forwards;
+    }
+
+    @keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0; transform: translate(-50%, -60%);}
+    }
+
+    /* Floating hearts */
     .heart {
-      width: 30px;
-      height: 30px;
-      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
-      background-size: cover;
-      position: absolute;
-      animation: float 6s ease-in infinite;
+      position: fixed;
+      bottom: 0;
+      font-size: 24px;
+      color: #ff4d6d;
+      animation: floatUp 6s infinite;
+      z-index: 0;
     }
 
-    @keyframes float {
+    @keyframes floatUp {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-100vh); opacity: 0; }
     }
 
-    .sparkle-cursor {
-      pointer-events: none;
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background: radial-gradient(white, rgba(255,255,255,0));
-      border-radius: 50%;
-      mix-blend-mode: screen;
-      z-index: 9999;
+    /* Sparkle cursor */
+    body {
+      cursor: url('https://cdn-icons-png.flaticon.com/512/616/616408.png'), auto;
     }
 
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
+    @media screen and (max-width: 600px) {
+      .letter {
+        padding: 15px;
+        font-size: 16px;
       }
 
-      p {
-        font-size: 1rem;
-      }
-
-      .secret-btn {
-        font-size: 1rem;
-      }
-
-      .secret-message {
-        font-size: 1.1rem;
+      .secret-message span {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>To My Mufi Kutty 💖</h1>
+  <!-- Kissing emoji -->
+  <div class="emoji-kiss">😘</div>
 
-  <p>
-    I couldn’t bring you a physical gift this time because of the fever 🥺. But I made this small surprise to remind you how precious you are to me.
-  </p>
+  <!-- Confetti -->
+  <canvas class="confetti"></canvas>
 
-  <div class="gallery">
+  <!-- Floating Hearts -->
+  <div class="heart" style="left: 10%;">❤️</div>
+  <div class="heart" style="left: 30%; animation-delay: 1s;">💖</div>
+  <div class="heart" style="left: 50%; animation-delay: 2s;">💕</div>
+  <div class="heart" style="left: 70%; animation-delay: 3s;">💘</div>
+  <div class="heart" style="left: 90%; animation-delay: 4s;">💗</div>
+
+  <!-- Main content -->
+  <div class="content">
+    <h1>To My Dearest Mufi Kutty 💕</h1>
+
+    <div class="letter">
+      <p>
+        Hey my love 😘<br><br>
+        I couldn’t give you a gift because I wasn’t feeling well... but you are too special to miss out on something sweet. 💌 So I made this for you... just us two, our little secret corner of the web.
+      </p>
+      <p>
+        You make my world brighter, my days warmer, and my heart happier 💖<br>
+        I’m grateful every single moment to have you as my Mufi Kutty 🥺💞<br>
+        This is just a tiny way of showing you how much you mean to me 🌈
+      </p>
+      <p>
+        Yours, always & forever,<br>
+        ❤️ Mohammed Sahis ❤️
+      </p>
+    </div>
+
+    <div class="gallery">
     <img src="photo1.jpg" alt="Photo 1">
     <img src="photo2.jpg" alt="Photo 2">
     <img src="photo3.jpg" alt="Photo 3">
@@ -128,37 +166,54 @@
     <img src="photo8.jpg" alt="New Photo 2">
   </div>
 
-  <button class="secret-btn" onclick="showMessage()">💌 Click Me Kutty 💌</button>
-
-  <div id="secret" class="secret-message">
-    You are the most beautiful thing that ever happened to me 💕<br>
-    I love you more than words can say 😘<br>
-    Forever yours, <b>Sahis ❤️</b>
+    <div class="secret-message">
+      <p>Tap a heart 💕 to see a secret:</p>
+      <span onclick="reveal(1)">❤️</span>
+      <span onclick="reveal(2)">💖</span>
+      <span onclick="reveal(3)">💘</span>
+      <div id="msg1" class="hidden">You are the most beautiful person inside and out 💫</div>
+      <div id="msg2" class="hidden">Every moment with you is my favorite memory 🌹</div>
+      <div id="msg3" class="hidden">I love you more than words could ever say 💕</div>
+    </div>
   </div>
 
   <script>
-    function showMessage() {
-      document.getElementById('secret').style.display = 'block';
+    function reveal(id) {
+      document.getElementById('msg' + id).classList.toggle('hidden');
     }
 
-    // Floating hearts
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.top = "100vh";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 400);
+    // Confetti
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Sparkle cursor
-    const cursor = document.createElement('div');
-    cursor.classList.add('sparkle-cursor');
-    document.body.appendChild(cursor);
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+    let pieces = [];
+    const colors = ["#ff4d6d", "#f9c5d1", "#ffe0f0", "#ff99c8"];
+
+    for (let i = 0; i < 150; i++) {
+      pieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        radius: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: Math.random() * 3 + 2
+      });
+    }
+
+    function update() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of pieces) {
+        p.y += p.speed;
+        if (p.y > canvas.height) p.y = -10;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      }
+      requestAnimationFrame(update);
+    }
+    update();
   </script>
 </body>
 </html>
