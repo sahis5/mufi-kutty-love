@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mufi Kutty 💖</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
   <style>
     body {
@@ -17,14 +16,14 @@
 
     .container {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
       color: #ff69b4;
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     .letter {
@@ -38,17 +37,25 @@
       color: #333;
     }
 
-    .photo {
-      width: 90%;
-      max-width: 300px;
-      border-radius: 15px;
-      margin: 1rem auto;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s;
+    .photos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
     }
 
-    .photo:hover {
-      transform: scale(1.05);
+    .photo {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .photo:active {
+      transform: scale(1.1);
     }
 
     .surprise {
@@ -83,6 +90,7 @@
       border-radius: 50%;
       box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
       animation: sparkle 1s ease-out forwards;
+      z-index: 1000;
     }
 
     @keyframes sparkle {
@@ -98,26 +106,33 @@
       left: 50%;
       transform: translateX(-50%);
       background: #fff0f5;
-      padding: 1rem;
+      padding: 1rem 1.5rem;
       border-radius: 20px;
       font-size: 1.1rem;
       color: #d63384;
       animation: floatUp 3s ease-in-out;
+      z-index: 100;
     }
 
     @keyframes floatUp {
-      0% {
-        opacity: 0;
-        bottom: 20px;
-      }
-      50% {
-        opacity: 1;
-        bottom: 50px;
-      }
-      100% {
-        opacity: 0;
-        bottom: 100px;
-      }
+      0% { opacity: 0; bottom: 20px; }
+      50% { opacity: 1; bottom: 60px; }
+      100% { opacity: 0; bottom: 100px; }
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: #ff69b4;
+      color: white;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #ff1493;
     }
   </style>
 </head>
@@ -132,24 +147,24 @@
       <p>Each time you laugh, I fall in love again. Each time you say "Kutty", it makes my heart dance. You're the cutest thing in my world and I just want to say, I love you more than words can ever express. ❤️</p>
     </div>
 
-    
-    <img src="photo1.jpg" alt="Photo 1">
-    <img src="photo2.jpg" alt="Photo 2">
-    <img src="photo3.jpg" alt="Photo 3">
-    <img src="photo4.jpg" alt="Photo 4">
-    <img src="photo5.jpg" alt="Photo 5">
-    <img src="photo6.jpg" alt="Photo 6">
-    <img src="photo7.jpg" alt="New Photo 1">
-    <img src="photo8.jpg" alt="New Photo 2">
-  
+    <div class="photos">
+      <img class="photo" src="photo1.jpg" alt="Photo 1" />
+      <img class="photo" src="photo2.jpg" alt="Photo 2" />
+      <img class="photo" src="photo3.jpg" alt="Photo 3" />
+      <img class="photo" src="photo4.jpg" alt="Photo 4" />
+      <img class="photo" src="photo5.jpg" alt="Photo 5" />
+      <img class="photo" src="photo6.jpg" alt="Photo 6" />
+      <img class="photo" src="photo7.jpg" alt="Photo 7" />
+      <img class="photo" src="photo8.jpg" alt="Photo 8" />
+    </div>
 
     <div class="surprise" onclick="showMessage()">💌 Tap here for a secret message</div>
     <div class="hidden-message" id="secret">You're my favorite notification, forever. 💌</div>
 
+    <button class="btn" onclick="toggleMusic()">🎶 Toggle Music</button>
     <audio id="bg-music" loop>
       <source src="music.mp3" type="audio/mpeg">
     </audio>
-    <button onclick="toggleMusic()">🎶 Toggle Music</button>
   </div>
 
   <div class="bubble">🧁 You're the sweetest!</div>
@@ -161,21 +176,21 @@
 
     function toggleMusic() {
       const music = document.getElementById("bg-music");
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
+      if (music.paused) music.play();
+      else music.pause();
     }
 
-    document.addEventListener('mousemove', function (e) {
+    document.addEventListener('touchmove', sparkleTrail);
+    document.addEventListener('mousemove', sparkleTrail);
+
+    function sparkleTrail(e) {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
       sparkle.style.left = e.pageX + 'px';
       sparkle.style.top = e.pageY + 'px';
       document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 1000);
-    });
+      setTimeout(() => sparkle.remove(), 800);
+    }
   </script>
 </body>
 
