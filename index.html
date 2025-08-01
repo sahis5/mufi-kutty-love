@@ -15,7 +15,6 @@
       position: relative;
     }
 
-    /* Glitter background */
     .glitter {
       position: fixed;
       top: 0;
@@ -23,16 +22,15 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px),
-                        radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px);
-      background-size: 10px 10px;
+      background-image: repeating-radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 2px);
+      background-size: 20px 20px;
       animation: glitterMove 3s linear infinite;
       z-index: 1;
     }
 
     @keyframes glitterMove {
-      0% { background-position: 0 0, 5px 5px; }
-      100% { background-position: 10px 10px, 15px 15px; }
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
     }
 
     .container {
@@ -73,12 +71,14 @@
       max-width: 300px;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s;
+      transition: transform 0.4s ease;
       cursor: pointer;
     }
 
-    .photo:active {
-      transform: scale(1.1);
+    .photo:active,
+    .photo:focus {
+      transform: scale(1.2);
+      z-index: 100;
     }
 
     .surprise {
@@ -113,7 +113,7 @@
       border-radius: 50%;
       box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
       animation: sparkle 1s ease-out forwards;
-      z-index: 1000;
+      z-index: 999;
     }
 
     @keyframes sparkle {
@@ -157,6 +157,14 @@
     .btn:hover {
       background: #ff1493;
     }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -177,10 +185,6 @@
       <img class="photo" src="photo2.jpg" alt="Photo 2" />
       <img class="photo" src="photo3.jpg" alt="Photo 3" />
       <img class="photo" src="photo4.jpg" alt="Photo 4" />
-      <img class="photo" src="photo5.jpg" alt="Photo 5" />
-      <img class="photo" src="photo6.jpg" alt="Photo 6" />
-      <img class="photo" src="photo7.jpg" alt="Photo 7" />
-      <img class="photo" src="photo8.jpg" alt="Photo 8" />
     </div>
 
     <div class="surprise" onclick="showMessage()">💌 Tap here for a secret message</div>
@@ -194,9 +198,12 @@
 
   <div class="bubble">🧁 You're the sweetest!</div>
 
+  <canvas id="confetti"></canvas>
+
   <script>
     function showMessage() {
       document.getElementById("secret").style.display = "block";
+      launchConfetti();
     }
 
     function toggleMusic() {
@@ -216,6 +223,58 @@
       document.body.appendChild(sparkle);
       setTimeout(() => sparkle.remove(), 800);
     }
+
+    // Confetti
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 40 + 10,
+          color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+          tilt: Math.random() * 10 - 10,
+          tiltAngle: 0
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of pieces) {
+        ctx.beginPath();
+        ctx.lineWidth = p.r;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+        ctx.stroke();
+      }
+      updateConfetti();
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function updateConfetti() {
+      for (let p of pieces) {
+        p.tiltAngle += 0.1;
+        p.y += Math.cos(p.d) + 2;
+        p.tilt = Math.sin(p.tiltAngle) * 15;
+        if (p.y > canvas.height) p.y = -20;
+      }
+    }
+
+    drawConfetti();
   </script>
 </body>
 
