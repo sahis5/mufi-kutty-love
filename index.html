@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mufi Kutty 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #fbefff);
+      overflow-x: hidden;
+      text-align: center;
+    }
+    .confetti {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    .main {
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #d6336c;
+    }
+    .letter {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      max-width: 600px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .gallery img {
+      max-width: 90%;
+      border-radius: 20px;
+      margin: 1rem auto;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .emoji-heart {
+      font-size: 2rem;
+      cursor: pointer;
+      margin: 1rem;
+    }
+    .message-box {
+      display: none;
+      background: #fff0f6;
+      color: #880e4f;
+      padding: 1rem;
+      border-radius: 12px;
+      margin: 1rem auto;
+      max-width: 300px;
+      font-weight: bold;
+    }
+    .kiss-emoji {
+      font-size: 5rem;
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1001;
+      animation: popFade 2s forwards;
+    }
+    @keyframes popFade {
+      0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="kiss-emoji">😘</div>
+  <canvas class="confetti" id="confetti"></canvas>
+  <div class="main">
+    <h1>To My Precious Mufi Kutty 💗</h1>
+    <div class="letter">
+      <p>
+        Hey my Mufi Kutty, I know I couldn’t give you a gift in person because of the fever, but you mean so much more to me than a gift ever could. You’re my sunshine, my smile in the dark, and the cutest soul I’ve ever known. 💝💫<br><br>
+        Every moment with you feels like magic. You’ve stood by me, cheered me up, and made me feel loved in ways I never imagined possible. This little page is my way of saying just how special you are. 💌
+        <br><br>
+        Thank you for being mine. Forever yours, with all my love. ❤️💫
+      </p>
+    </div>
+    <div class="gallery">
+    <img src="photo1.jpg" alt="Photo 1">
+    <img src="photo2.jpg" alt="Photo 2">
+    <img src="photo3.jpg" alt="Photo 3">
+    <img src="photo4.jpg" alt="Photo 4">
+    <img src="photo5.jpg" alt="Photo 5">
+    <img src="photo6.jpg" alt="Photo 6">
+    <img src="photo7.jpg" alt="New Photo 1">
+    <img src="photo8.jpg" alt="New Photo 2">
+  </div>
+    <div>
+      <div class="emoji-heart" onclick="showMessage('msg1')">💖</div>
+      <div class="emoji-heart" onclick="showMessage('msg2')">💌</div>
+      <div class="emoji-heart" onclick="showMessage('msg3')">💘</div>
+    </div>
+    <div id="msg1" class="message-box">You are the beat of my heart 💓</div>
+    <div id="msg2" class="message-box">Every day with you is my favorite day 💗</div>
+    <div id="msg3" class="message-box">You’re my forever person 💞</div>
+  </div>
+
+  <script>
+    function showMessage(id) {
+      const boxes = document.querySelectorAll(".message-box");
+      boxes.forEach((box) => (box.style.display = "none"));
+      document.getElementById(id).style.display = "block";
+    }
+  </script>
+</body>
+</html>
